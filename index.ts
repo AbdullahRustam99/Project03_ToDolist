@@ -21,7 +21,7 @@ while (condition) {
 	{
 		name: "more",
 		type: "confirm",
-		message: chalk.bold.hex("#00FFAE")("Are you want to add more item"),
+		message: chalk.bold.hex("#00FFAE")("Are you want to add more item ?"),
 		default: "false"
 	}
 	])
@@ -31,7 +31,7 @@ while (condition) {
 console.log(chalk.bold.hex("#001CCF")(`${(title.title).toUpperCase()}`) + chalk.bold.hex("#F7FFFB")(" : "));
 
 for (let i = 0; i < todos.length; i++) {
-	console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}. ${todos[i]} `))
+	console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}: ${todos[i]} `))
 };
 
 let conditions = true;
@@ -41,7 +41,7 @@ while (conditions) {
 		{
 			type: "confirm",
 			name: "update",
-			message: chalk.bold.hex("#00FFAE")("Do you Want to update OR change your list item"),
+			message: chalk.bold.hex("#00FFAE")("Do you Want to update OR change your list item ?"),
 			default: "fasle"
 
 		}]);
@@ -51,38 +51,60 @@ while (conditions) {
 			{
 				type: "list",
 				name: "check",
-				message: chalk.bold.hex("#9E00FF")("Select Option"),
-				choices: ["CheckList", "AddMore", "DeleteItem"],
+				message: chalk.bold.hex("#9E00FF")("Select Option "),
+				choices: ["CheckList", "AddMore", "DeleteItem", "UpdateItem"],
 			}])
 		switch (taskCheck.check) {
 
 			case "CheckList":
 				for (let i = 0; i < todos.length; i++) {
-					console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}. ${todos[i]} `))
+					console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}: ${todos[i]} `))
 				};
 				break;
 			case "AddMore":
 				let addlist = await inquirer.prompt([{
 					type: "input",
 					name: "addmore",
-					message: chalk.bold.hex("#FAFFFF")("Write your item")
+					message: chalk.bold.hex("#FAFFFF")("Write your item : ")
 				}])
 				todos.push(addlist.addmore)
 				for (let i = 0; i < todos.length; i++) {
-					console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}. ${todos[i]} `))
+					console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}: ${todos[i]} `))
 				};
 				break;
 			case "DeleteItem":
 				let deletList = await inquirer.prompt([{
 					type: "list",
 					name: "delete",
-					message: chalk.bold.hex("#FF0000")("What you want to delete item"),
+					message: chalk.bold.hex("#FF0000")("Which Item you want to delete ?"),
 					choices: [...todos]
 				}])
 				let a = todos.splice(todos.indexOf(deletList.delete), 1)
 				for (let i = 0; i < todos.length; i++) {
-					console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}. ${todos[i]} `))
+					console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}: ${todos[i]} `))
 				};
+				break;
+			case "UpdateItem":
+				let updateList = await inquirer.prompt([{
+					type: "list",
+					name: "update",
+					message: chalk.bold.hex("#FF0000")("Which Item you want to Update ?"),
+					choices: [...todos]
+				},
+				{
+					type: "input",
+					name: "updateItem",
+					message: chalk.bold.hex("#FAFFFF")("Write your Update Item : ")
+				}
+				])
+				let b = todos.splice(todos.indexOf(updateList.update), 1, updateList.updateItem)
+
+				for (let i = 0; i < todos.length; i++) {
+					console.log(chalk.bold.hex("#FAFFFF")(`${i + 1}: ${todos[i]} `))
+				};
+
+				break;
+			default: ""
 				break;
 
 		}
