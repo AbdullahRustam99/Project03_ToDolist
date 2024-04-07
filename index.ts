@@ -3,6 +3,13 @@
 import inquirer from "inquirer";
 import chalk from "chalk";
 
+console.log(chalk.bold("\n#####################################################"));
+console.log(chalk.bold("====================================================="));
+console.log(chalk.bold("\tWelcome To ABDULLAH TODOs List App"));
+console.log(chalk.bold("====================================================="));
+console.log(chalk.bold("#####################################################"));
+console.log("\n");
+
 let todos = [];
 let condition = true;
 
@@ -108,6 +115,10 @@ while (conditions) {
 				break;
 
 		}
+	} else {
+		console.log(chalk.bold("\n\n=========================================================="));
+		console.log(chalk.bold("\t\tGood BY Come Back Later"));
+		console.log(chalk.bold("=========================================================="));
 	}
 }
 
